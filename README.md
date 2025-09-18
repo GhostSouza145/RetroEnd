@@ -1,6 +1,7 @@
 # PixelPlay - Retro Gaming Platform 🎮
 
-![PixelPlay](https://i.imgur.com/placeholder.png) 
+<img width="1877" height="978" alt="projeto" src="https://github.com/user-attachments/assets/848f18d8-8295-456a-aab5-0cd1c7394b1f" />
+
 *Nota: A imagem acima é uma representação do projeto. Para ver a imagem real, consulte o arquivo `imagem_2025-09-18_194322797.png` no diretório do projeto.*
 
 ## 📋 Sobre o Projeto
