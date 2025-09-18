@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelPlay - Retro Gaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET E ESTILOS GERAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple: #8c00ff;
+            --pink: #ff00ff;
+            --blue: #00ffff;
+            --yellow: #ffff00;
+            --green: #00ff00;
+            --dark: #1a0033;
+            --darker: #0d001a;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Press Start 2P', cursive;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--purple);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--purple);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--purple);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle, var(--dark) 0%, var(--darker) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, var(--darker) 22px, transparent 1%) center,
+                linear-gradient(var(--darker) 22px, transparent 1%) center,
+                var(--purple);
+            background-size: 24px 24px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--yellow);
+            text-shadow: 5px 5px 0 var(--purple);
+            animation: glow 2s infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--blue);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--pink), var(--purple));
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 5px 5px 0 #000;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--blue), var(--green));
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background-color: var(--darker);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 24px, var(--purple) 1%) center,
+                linear-gradient(transparent 24px, var(--purple) 1%) center;
+            background-size: 26px 26px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--pink);
+            text-shadow: 3px 3px 0 #000;
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border: 3px solid var(--blue);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        .feature-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 10px 10px 0 #000;
+            border-color: var(--pink);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--yellow);
+        }
+
+        .feature-card h3 {
+            color: var(--blue);
+            margin-bottom: 15px;
+        }
+
+        /* ===== PRODUCTS SECTION ===== */
+        .products {
+            background: radial-gradient(circle, var(--dark) 0%, var(--darker) 100%);
+        }
+
+        .products .section-title {
+            color: var(--yellow);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border: 3px solid var(--pink);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 5px 5px 0 #000;
+        }
+
+        .product-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 10px 10px 0 #000;
+            border-color: var(--green);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--dark), var(--purple));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 24px, var(--purple) 1%) center,
+                linear-gradient(transparent 24px, var(--purple) 1%) center;
+            background-size: 26px 26px;
+            opacity: 0.2;
+        }
+
+        .product-card h3 {
+            color: var(--green);
+        }
+
+        .price {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--yellow);
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            background-color: var(--darker);
+        }
+
+        .contact .section-title {
+            color: var(--blue);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--pink);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--purple);
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--pink);
+            box-shadow: 0 0 10px var(--pink);
+        }
+
+        .contact-form button {
+            align-self: center;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #000;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 3px solid var(--purple);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--pink), var(--purple));
+            color: white;
+            border-radius: 0;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 3px 3px 0 #000;
+        }
+
+        .social-links a:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 6px 6px 0 #000;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            color: var(--blue);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--yellow), 0 0 10px var(--yellow);
+            }
+            to {
+                text-shadow: 0 0 20px var(--yellow), 0 0 30px var(--pink);
+            }
+        }
+
+        @keyframes pixelate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pixelated {
+            animation: pixelate 0.5s infinite steps(2);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .features-grid,
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== EFEITO DE DIGITAÇÃO ===== */
+        .typewriter {
+            overflow: hidden;
+            border-right: 0.15em solid var(--yellow);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--yellow) }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Pixel<span>Play</span></a>
+            <ul class="nav-links">
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#products">Produtos</a></li>
+                <li><a href="#contact">Contato</a></li>
+                <li><a href="#" class="btn">Jogar Agora</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>REVIVA A ERA DE OURO DOS VIDEOGAMES</h1>
+            <p class="typewriter">Os melhores jogos retrô em um só lugar!</p>
+            <div>
+                <a href="#products" class="btn">Explorar Jogos</a>
+                <a href="#contact" class="btn btn-secondary">Cadastrar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">RECURSOS EXCLUSIVOS</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Jogos Clássicos</h3>
+                    <p>Mais de 500 jogos retrô disponíveis para jogar instantaneamente.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Sistema de Ranking</h3>
+                    <p>Competa com jogadores do mundo todo e suba no ranking global.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Multijogador</h3>
+                    <p>Desafie seus amigos em modos multijogador online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">JOGOS EM DESTAQUE</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <h3>Space Invaders</h3>
+                    <p>Clássico jogo de invasão espacial dos anos 80.</p>
+                    <div class="price">GRÁTIS</div>
+                    <a href="#" class="btn">Jogar</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <h3>Pac-Man</h3>
+                    <p>O famoso come-come em sua versão original.</p>
+                    <div class="price">GRÁTIS</div>
+                    <a href="#" class="btn">Jogar</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <h3>Snake</h3>
+                    <p>Controle a cobrinha e cresça sem bater no próprio corpo.</p>
+                    <div class="price">GRÁTIS</div>
+                    <a href="#" class="btn">Jogar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">FALE CONOSCO</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar Mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo">Pixel<span>Play</span></a>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+                <p class="copyright">&copy; 2023 PixelPlay - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Efeito de digitação no título
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuração do efeito de digitação
+            const typewriterElement = document.querySelector('.typewriter');
+            if (typewriterElement) {
+                // Reinicia a animação ao focar na janela
+                window.addEventListener('focus', () => {
+                    typewriterElement.style.animation = 'none';
+                    setTimeout(() => {
+                        typewriterElement.style.animation = '';
+                    }, 10);
+                });
+            }
+
+            // Efeito de scroll suave para links internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (this.getAttribute('href') !== '#') {
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Adiciona classe de animação para elementos quando estão na viewport
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar os cards de features e produtos
+            document.querySelectorAll('.feature-card, .product-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Efeito de confetti no clique do botão
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        createConfetti(e);
+                    }
+                });
+            });
+
+            // Função para criar confetti
+            function createConfetti(e) {
+                const colors = ['#ff00ff', '#8c00ff', '#00ffff', '#ffff00', '#00ff00'];
+                const buttonRect = e.target.getBoundingClientRect();
+                const x = buttonRect.left + buttonRect.width / 2;
+                const y = buttonRect.top + buttonRect.height / 2;
+                
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = `${x}px`;
+                    confetti.style.top = `${y}px`;
+                    confetti.style.zIndex = '1000';
+                    confetti.style.pointerEvents = 'none';
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 2 + Math.random() * 2;
+                    const xVelocity = Math.cos(angle) * velocity;
+                    const yVelocity = Math.sin(angle) * velocity;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    let posX = x;
+                    let posY = y;
+                    let gravity = 0.1;
+                    let ySpeed = 0;
+                    
+                    const animateConfetti = () => {
+                        ySpeed += gravity;
+                        posX += xVelocity;
+                        posY += yVelocity + ySpeed;
+                        
+                        confetti.style.left = `${posX}px`;
+                        confetti.style.top = `${posY}px`;
+                        
+                        if (posY < window.innerHeight) {
+                            requestAnimationFrame(animateConfetti);
+                        } else {
+                            document.body.removeChild(confetti);
+                        }
+                    };
+                    
+                    animateConfetti();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
